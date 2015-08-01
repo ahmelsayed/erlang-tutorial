@@ -1,5 +1,5 @@
 -module(lib_misc).
--export([for/3, sum/1, map/2, qsort/1, pathag/1, perms/1, max/2, filter/2, odds_and_evens1/1, odds_and_evens2/1]).
+-export([for/3, sum/1, map/2, qsort/1, pathag/1, perms/1, max/2, filter/2, odds_and_evens1/1, odds_and_evens2/1, my_tuple_to_list/1]).
 
 for(Max, Max, F) -> [F(Max)];
 for(I, Max, F) -> [F(I)|for(I+1,Max,F)].
@@ -55,3 +55,8 @@ odds_and_evens_acc([H|T], Odds, Evens) ->
     end;
 odds_and_evens_acc([], Odds, Evens) ->
     {lists:reverse(Odds), lists:reverse(Evens)}.
+
+my_tuple_to_list(T) -> lists:reverse(my_tuple_to_list(T, [])).
+my_tuple_to_list({}, L) -> L;
+my_tuple_to_list(T, L) ->
+    my_tuple_to_list(erlang:delete_element(1, T), [element(1, T)|L]).
